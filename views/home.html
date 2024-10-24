@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookstore</title>
+</head>
+<body>
+  <h1>Bookstore</h1>
+  <form action="/add-book" method="POST">
+    <input type="text" name="title" placeholder="Enter book title" required />
+    <button type="submit">Add Book</button>
+  </form>
+
+  <div id="book-list">
+    <h2>Books:</h2>
+    <ul id="books"></ul>
+  </div>
+
+  <script>
+    // Fetch and display books
+    fetch('/api/books')
+      .then(response => response.json())
+      .then(books => {
+        const bookList = document.getElementById('books');
+        books.forEach(book => {
+          const li = document.createElement('li');
+          li.textContent = book.title;
+          bookList.appendChild(li);
+        });
+      })
+      .catch(error => console.error('Error fetching books:', error));
+  </script>
+</body>
+</html>
